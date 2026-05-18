@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [const Color.fromARGB(216, 184, 234, 237), const Color.fromARGB(255, 14, 116, 119)],
+              colors: [ const Color.fromARGB(255, 1, 36, 57),const Color.fromARGB(228, 21, 0, 46),],
             )
           ),
           child: Column(
@@ -23,11 +23,11 @@ class SplashScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    '1.1.1',
+                    'v1.0',
                     style: TextStyle(
                       fontSize: 17, 
                       //fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 36, 148, 163)
+                      color: Color(0xFF81D4FA)
 
                       ),
                   )
@@ -38,7 +38,7 @@ class SplashScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                    Image.asset(
-                    'assets/Logo1.png',
+                    'assets/Logo2.png',
                     width: 300,
                     height: 300,
                   ),
@@ -49,25 +49,40 @@ class SplashScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Event Management System',
+                    'SyncUp',
                     style: TextStyle(
                       fontSize: 24, 
                       //fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 157, 230, 240),
-                      fontFamily: 'sans-serif',
+                      color: Color.fromARGB(255, 205, 249, 254),
+                      fontFamily: 'Inter',
+                      ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'From Seminars to Celebration',
+                    style: TextStyle(
+                      fontSize: 18, 
+                      //fontWeight: FontWeight.bold,
+                      color: Color(0xFF81D4FA),
+                      fontFamily: 'Inter',
                       ),
                   )
                 ],
               ),
               const SizedBox(height: 80),
-              const CircularProgressIndicator(color: Color.fromARGB(255, 117, 190, 194),),
+              const CircularProgressIndicator(color: Color(0xFF81D4FA),),
               const SizedBox(height: 20),
               const Text(
                 '   Loading...',
                 style: TextStyle(
                   fontSize: 18, 
                   //fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 117, 190, 194),
+                  color: Color(0xFF81D4FA),
+                  fontFamily: 'Inter',
                   ),
               ),
             ],
