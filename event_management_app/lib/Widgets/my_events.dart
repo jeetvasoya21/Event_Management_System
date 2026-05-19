@@ -10,12 +10,9 @@ class MyData {
   String college="";
   String department="";
   DateTime? date;
-  TimeOfDay? time;
   String location="";
   String registrationInfo="";
-  String contactInfo="";
   String registrationLink="";
-  String eventType="";
   MyData(
     this.name,
     this.description,
