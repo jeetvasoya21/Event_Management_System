@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
@@ -19,6 +21,7 @@ class SplashScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
+              const SizedBox(height: 0.01),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
