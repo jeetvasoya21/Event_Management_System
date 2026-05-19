@@ -1,9 +1,9 @@
-import 'package:event_management_app/Widgets/home_screen.dart';
+
+import 'package:event_management_app/Widgets/my_events.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/rendering.dart';
 void main() {
-
- 
+  //debugPaintSizeEnabled = true; // Set to true to enable visual debugging of layout
   runApp(const MyApp());
 }
 
@@ -12,9 +12,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
-    );
+    return const MyEvents();
   }
 }

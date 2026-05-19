@@ -1,85 +1,16 @@
 import 'package:event_management_app/Widgets/simple_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:event_management_app/Widgets/my_events.dart';
 
-class MyData {
-  final String name;
-  final String description;
-  final String college;
-  final String department;
-  final Image image;
-  final String date;
-  final String location;
-
-  MyData(
-    this.name,
-    this.description,
-    this.college,
-    this.department,
-    this.image,
-    this.date,
-    this.location,
-  );
-}
-
-final List<MyData> myDataList = [
-  MyData(
-    'Event 1',
-    'Description for Event 1',
-    'College 1',
-    'CP',
-    Image.asset('assets/placeholder.png'),
-    '2024-06-01',
-    'Auditorium',
-  ),
-  MyData(
-    'Event 2',
-    'Description for Event 2',
-    'College 2',
-    'IT',
-    Image.asset('assets/placeholder.png'),
-    '2024-06-02',
-    'Conference Room',
-  ),
-  MyData(
-    'Event 3',
-    'Description for Event 3',
-    'College 3',
-    'ME',
-    Image.asset('assets/placeholder.png'),
-    '2024-06-03',
-    'Outdoor Stage',
-  ),
-  MyData(
-    'Event 4',
-    'Description for Event 4',
-    'College 1',
-    'IT',
-    Image.asset('assets/placeholder.png'),
-    '2024-06-04',
-    'Main Hall',
-  ),
-  MyData(
-    'Event 5',
-    'Description for Event 5',
-    'College 2',
-    'CP',
-    Image.asset('assets/placeholder.png'),
-    '2024-06-05',
-    'Lecture Theater',
-  ),
-  MyData(
-    'Event 6',
-    'Description for Event 6',
-    'College 3',
-    'CP',
-    Image.asset('assets/placeholder.png'),
-    '2024-06-06',
-    'Exhibition Center',
-  ),
-];
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+
+  List<MyData> myDataList = [];
+
+  HomeScreen({
+    super.key,
+    required this.myDataList,
+    });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -120,35 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F6FB),
-
-      appBar: AppBar(
-        title: const Text(
-          'Event Management App',
-
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-
-        backgroundColor: const Color.fromARGB(245, 39, 2, 88),
-
-        elevation: 2,
-
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu, color: Colors.white),
-        ),
-
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.add, color: Colors.white),
-          ),
-        ],
-      ),
 
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -285,8 +187,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     image: e.image,
                     college: e.college,
                     department: e.department,
-                    date: '2024-06-01',
-                    location: 'Auditorium',
+                    date: e.date,
+                    location: e.location,
                   );
                 },
               ),
@@ -295,27 +197,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, '/add-event'),
         backgroundColor: const Color.fromARGB(255, 39, 2, 88),
         child: const Icon(Icons.add, color: Colors.white),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Wishlist',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: 0,
-        onTap: (index) {},
       ),
     );
   }

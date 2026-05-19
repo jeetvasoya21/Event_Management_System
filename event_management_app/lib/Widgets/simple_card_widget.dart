@@ -6,7 +6,7 @@ class SimpleCardWidget extends StatelessWidget {
   final Image image;
   final String college;
   final String department;
-  final String date;
+  final dynamic date;
   final String location;
   
 
@@ -134,7 +134,7 @@ class SimpleCardWidget extends StatelessWidget {
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
-                              date,
+                              date.toString().split(' ')[0].split('-').reversed.join('-'),
                               style: const TextStyle(fontSize: 16, color: Colors.grey),
                               overflow: TextOverflow.ellipsis,
                             ),
