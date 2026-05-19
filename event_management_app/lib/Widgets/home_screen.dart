@@ -2,24 +2,19 @@ import 'package:event_management_app/Widgets/simple_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:event_management_app/Widgets/my_events.dart';
 
-
 class HomeScreen extends StatefulWidget {
+  final List<MyData> myDataList;
 
-  List<MyData> myDataList = [];
-
-  HomeScreen({
-    super.key,
-    required this.myDataList,
-    });
+  HomeScreen({super.key, required this.myDataList});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  List<String> colleges = ['All', 'College 1', 'College 2', 'College 3'];
+class _HomeScreenState extends State<HomeScreen>{
+  // List<String> colleges = ['All', ...myDataList.map((data) => data.college).toSet().toList()];
 
-  List<String> departments = ['All', 'CP', 'IT', 'ME'];
+  // List<String> departments = ['All', ...myDataList.map((data) => data.department).toSet().toList()];
 
   var selectedCollege = 'All';
   var selectedDepartment = 'All';
@@ -36,8 +31,30 @@ class _HomeScreenState extends State<HomeScreen> {
     }).toList();
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addObserver(this);
+  // }
+
+  // @override
+  // void didPopNext() {
+  //   setState(() {});
+  // }
+
+  // @override
+  // void dispose() {
+  //   WidgetsBinding.instance.removeObserver(this);
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
+
+    List<String> colleges = ['All', ...myDataList.map((data) => data.college).toSet().toList()];
+
+  List<String> departments = ['All', ...myDataList.map((data) => data.department).toSet().toList()];
+
     final screenWidth = MediaQuery.of(context).size.width;
 
     int crossAxisCount = 1;
@@ -51,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Scaffold(
-
       body: Padding(
         padding: const EdgeInsets.all(16),
 
@@ -197,12 +213,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, '/add-event'),
+        onPressed: () async {
+          await Navigator.pushNamed(context, '/add-event');
+          setState(() {});
+        },
         backgroundColor: const Color.fromARGB(255, 39, 2, 88),
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
-
-
 }

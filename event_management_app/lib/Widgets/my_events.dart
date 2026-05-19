@@ -10,12 +10,9 @@ class MyData {
   String college="";
   String department="";
   DateTime? date;
-  TimeOfDay? time;
   String location="";
   String registrationInfo="";
-  String contactInfo="";
   String registrationLink="";
-  String eventType="";
   MyData(
     this.name,
     this.description,
@@ -145,7 +142,7 @@ class _MyEventsState extends State<MyEvents> {
                 switch (settings.name) {
                   case '/':
                   case '/home':
-                    builder = (BuildContext _) => HomeScreen(myDataList: events,);
+                    builder = (BuildContext _) => HomeScreen(myDataList: myDataList,);
                     break;
                   case '/add-event':
                     builder = (BuildContext _) => AddEvent();
