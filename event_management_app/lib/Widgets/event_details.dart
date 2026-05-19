@@ -25,36 +25,27 @@ class EventDetails extends StatelessWidget {
     
     return Scaffold(
       backgroundColor: const Color(0xFFF4F6FB),
-      appBar: AppBar(
-        title: Text(
-          myData.name,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: screenWidth > 600 ? 18 : 16,
-          ),
-        ),
-        backgroundColor: const Color.fromARGB(245, 39, 2, 88),
-        elevation: 2,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.edit, color: Colors.white),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.delete, color: Colors.white),
-          ),
-        ],
-      ),
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Color.fromARGB(245, 39, 2, 88)),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                const Text(
+                  'Event Details',
+                  style: TextStyle(
+                    color: Color.fromARGB(245, 39, 2, 88),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ],  
+            ),
             
             Container(
               width: double.infinity,
@@ -62,9 +53,11 @@ class EventDetails extends StatelessWidget {
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
-              child: FittedBox(
+              child: Image(
+                image: myData.image.image,
+                width: double.infinity,
+                height: imageHeight,
                 fit: BoxFit.cover,
-                child: myData.image,
               ),
             ),
             Padding(
@@ -85,7 +78,7 @@ class EventDetails extends StatelessWidget {
 
                   // Description
                   Text(
-                    myData.description,
+                    myData.tagline,
                     style: TextStyle(
                       fontSize: descriptionFontSize,
                       color: Colors.grey,
@@ -93,13 +86,22 @@ class EventDetails extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: padding * 1.5),
+                  Text( 
+                    myData.description,
+                    style: TextStyle(
+                      fontSize: descriptionFontSize,
+                      color: Colors.black87,
+                      height: 1.6,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
 
                   // Event Info
                   eventInfoRow(Icons.apartment, 'College', myData.college, infoFontSize),
                   SizedBox(height: padding),
                   eventInfoRow(Icons.school, 'Department', myData.department, infoFontSize),
                   SizedBox(height: padding),
-                  eventInfoRow(Icons.date_range, 'Date', myData.date!.toString(), infoFontSize),
+                  eventInfoRow(Icons.date_range, 'Date', myData.date!.toString().split(' ')[0], infoFontSize),
                   SizedBox(height: padding),
                   eventInfoRow(Icons.location_on, 'Location', myData.location, infoFontSize),
                   SizedBox(height: padding * 1.75),
@@ -110,6 +112,10 @@ class EventDetails extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            myData.registrationLink; // Handle registration link tap
+                          },
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color.fromARGB(245, 39, 2, 88),
@@ -135,6 +141,7 @@ class EventDetails extends StatelessWidget {
                           ),
                         ),
                       ),
+                      ),
                       SizedBox(width: padding),
                       Container(
                         decoration: BoxDecoration(
@@ -154,6 +161,25 @@ class EventDetails extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(width: 12),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: const Color.fromARGB(245, 39, 2, 88),
+                            width: 2,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: padding, horizontal: padding * 0.75),
+                          child: const Icon(
+                            Icons.delete,
+                            color: Color.fromARGB(245, 39, 2, 88),
+                            size: 22,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -161,6 +187,13 @@ class EventDetails extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Handle edit event action
+        },
+        backgroundColor: const Color.fromARGB(245, 39, 2, 88),
+        child: const Icon(Icons.edit, color: Colors.white),
       ),
     );
   }

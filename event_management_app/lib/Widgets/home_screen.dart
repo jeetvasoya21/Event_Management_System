@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:event_management_app/Widgets/my_events.dart';
 
 
+
 class HomeScreen extends StatefulWidget {
 
   List<MyData> myDataList = [];
@@ -181,7 +182,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   final e = newDataList[index];
 
-                  return SimpleCardWidget(
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/event-details',
+                        arguments: e,
+                      );
+                    },
+                 child: SimpleCardWidget(
                     title: e.name,
                     description: e.description,
                     image: e.image,
@@ -189,7 +198,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     department: e.department,
                     date: e.date,
                     location: e.location,
+                  
+                  ),
                   );
+                  
                 },
               ),
             ),
