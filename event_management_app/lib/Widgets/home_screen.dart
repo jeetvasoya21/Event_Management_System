@@ -1,32 +1,23 @@
 import 'package:event_management_app/Widgets/simple_card_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:event_management_app/Widgets/my_events.dart';
-
+import 'package:event_management_app/Widgets/event_class.dart';
 
 
 class HomeScreen extends StatefulWidget {
+  final List<MyData> myDataList;
 
-  List<MyData> myDataList = [];
-
-  HomeScreen({
-    super.key,
-    required this.myDataList,
-    });
+  const HomeScreen({super.key, required this.myDataList});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> colleges = ['All', 'College 1', 'College 2', 'College 3'];
-
-  List<String> departments = ['All', 'CP', 'IT', 'ME'];
-
   var selectedCollege = 'All';
   var selectedDepartment = 'All';
 
   List<MyData> get newDataList {
-    return myDataList.where((data) {
+    return widget.myDataList.where((data) {
       final newselectedCollege =
           selectedCollege == 'All' || data.college == selectedCollege;
 
@@ -39,6 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> colleges = [
+      'All',
+      ...widget.myDataList.map((data) => data.college).toSet(),
+    ];
+
+    List<String> departments = [
+      'All',
+      ...widget.myDataList.map((data) => data.department).toSet(),
+    ];
+
     final screenWidth = MediaQuery.of(context).size.width;
 
     int crossAxisCount = 1;
@@ -52,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Scaffold(
-
       body: Padding(
         padding: const EdgeInsets.all(16),
 
@@ -209,12 +209,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, '/add-event'),
+        onPressed: () async {
+          await Navigator.pushNamed(context, '/add-event');
+          setState(() {});
+        },
         backgroundColor: const Color.fromARGB(255, 39, 2, 88),
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
-
-
 }

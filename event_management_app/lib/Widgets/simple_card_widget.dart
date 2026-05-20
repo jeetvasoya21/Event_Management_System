@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:event_management_app/Widgets/event_class.dart';
 
 class SimpleCardWidget extends StatelessWidget {
-  final String title;
-  final String description;
-  final Image image;
-  final String college;
-  final String department;
-  final dynamic date;
-  final String location;
+  
+  final MyData e;
   
 
   const SimpleCardWidget({
     super.key,
-    required this.title,
-    required this.description,
-    required this.image,
-    required this.college,
-    required this.department,
-    required this.date,
-    required this.location,
+    required this.e,
   });
 
   @override
@@ -78,7 +68,7 @@ class SimpleCardWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  title,
+                  e.name,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -95,7 +85,7 @@ class SimpleCardWidget extends StatelessWidget {
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
-                              college,
+                              e.college,
                               style: const TextStyle(fontSize: 16, color: Colors.grey),
                              
                             ),
@@ -112,7 +102,7 @@ class SimpleCardWidget extends StatelessWidget {
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
-                              department,
+                              e.department,
                               style: const TextStyle(fontSize: 16, color: Colors.grey),
                               
                             ),
@@ -134,7 +124,7 @@ class SimpleCardWidget extends StatelessWidget {
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
-                              date.toString().split(' ')[0].split('-').reversed.join('-'),
+                              e.date.toString().split(' ')[0].split('-').reversed.join('-'),
                               style: const TextStyle(fontSize: 16, color: Colors.grey),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -151,7 +141,7 @@ class SimpleCardWidget extends StatelessWidget {
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
-                              location,
+                              e.location,
                               style: const TextStyle(fontSize: 16, color: Colors.grey),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -164,7 +154,7 @@ class SimpleCardWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  description,
+                  e.tagline,
                   style: const TextStyle(fontSize: 16, color: Colors.grey),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
