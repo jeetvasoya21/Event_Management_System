@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 class EventDetails extends StatelessWidget {
 
   final MyData myData;
-
+  final void Function(MyData) removeEvent;
 
   const EventDetails({
     super.key,
     required this.myData,
+    required this.removeEvent,
   });
 
   @override
@@ -162,21 +163,60 @@ class EventDetails extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: const Color.fromARGB(245, 39, 2, 88),
-                            width: 2,
+                      InkWell(
+                        onTap: () {
+                          final pageContext = context;
+
+                          showDialog(
+                            context: pageContext,
+                            builder: (dialogContext) => AlertDialog(
+                              title: const Text('Delete Event'),
+                              content: const Text(
+                                'Are you sure you want to delete this event?',
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(dialogContext),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    removeEvent(myData);
+
+                                    // Close dialog
+                                    Navigator.pop(dialogContext);
+
+                                    // Close EventDetails page
+                                    Navigator.pop(pageContext);
+                                  },
+                                  child: const Text(
+                                    'Delete',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: const Color.fromARGB(245, 39, 2, 88),
+                              width: 2,
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: padding, horizontal: padding * 0.75),
-                          child: const Icon(
-                            Icons.delete,
-                            color: Color.fromARGB(245, 39, 2, 88),
-                            size: 22,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: padding,
+                              horizontal: padding * 0.75,
+                            ),
+                            child: const Icon(
+                              Icons.delete,
+                              color: Color.fromARGB(245, 39, 2, 88),
+                              size: 22,
+                            ),
                           ),
                         ),
                       ),
