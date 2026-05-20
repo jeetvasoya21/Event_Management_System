@@ -144,9 +144,14 @@ class _MyEventsState extends State<MyEvents> {
                           AddEvent(addEvent: addEvent);
                       break;
                     case '/event-details':
-                      final myData = settings.arguments as MyData;
+                      final args = settings.arguments as Map<String, dynamic>;
+                      final index=args['index'] as int;
+                      final myData = args['event'] as MyData;
                       builder = (BuildContext _) =>
-                          EventDetails(myData: myData);
+                          EventDetails(
+                            index: index,
+                            myData: myData,
+                            );
                       break;
                     case '/edit-event':
                       final args = settings.arguments as Map<String, dynamic>;

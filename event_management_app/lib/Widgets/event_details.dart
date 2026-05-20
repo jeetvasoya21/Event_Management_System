@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class EventDetails extends StatelessWidget {
   final MyData myData;
+  final int index;
 
-  const EventDetails({super.key, required this.myData});
+  const EventDetails({super.key, required this.myData, required this.index});
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -134,8 +135,7 @@ class EventDetails extends StatelessWidget {
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            myData
-                                .registrationLink; // Handle registration link tap
+                            myData.registrationLink; // Handle registration link tap
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -168,7 +168,23 @@ class EventDetails extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: padding),
-                      Container(
+                      InkWell(
+                        onTap: () async {
+                          // Handle edit event tap
+                          await Navigator.pushNamed(
+                            context,
+                            '/edit-event',
+                            arguments: {
+                              'index': index,
+                              'event': myData,
+                            },
+                          );
+                          if (context.mounted) {
+      Navigator.pop(context);
+    }
+                        },
+                        
+                        child:Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
@@ -183,11 +199,12 @@ class EventDetails extends StatelessWidget {
                             horizontal: padding * 0.75,
                           ),
                           child: const Icon(
-                            Icons.share,
+                            Icons.edit,
                             color: Color.fromARGB(245, 39, 2, 88),
                             size: 22,
                           ),
                         ),
+                      ),
                       ),
                       const SizedBox(width: 12),
                       Container(
@@ -219,17 +236,17 @@ class EventDetails extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigator.pushNamed(
-          //   context,
-          //   '/edit-event',
-          //   arguments: {'index': index, 'event': myDataList[index]},
-          // );
-        },
-        backgroundColor: const Color.fromARGB(245, 39, 2, 88),
-        child: const Icon(Icons.edit, color: Colors.white),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     // Navigator.pushNamed(
+      //     //   context,
+      //     //   '/edit-event',
+      //     //   arguments: {'index': index, 'event': myDataList[index]},
+      //     // );
+      //   },
+      //   backgroundColor: const Color.fromARGB(245, 39, 2, 88),
+      //   child: const Icon(Icons.edit, color: Colors.white),
+      // ),
     );
   }
 
