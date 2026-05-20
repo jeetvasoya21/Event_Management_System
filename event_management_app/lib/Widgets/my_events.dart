@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:event_management_app/Widgets/home_screen.dart';
 import 'package:event_management_app/Widgets/add_event.dart';
 import 'package:event_management_app/Widgets/event_class.dart';
+import 'package:event_management_app/Widgets/user_profile.dart';
 
 class MyEvents extends StatefulWidget {
   const MyEvents({super.key});
@@ -94,6 +95,13 @@ class _MyEventsState extends State<MyEvents> {
       myDataList.add(event);
     });
   }
+  void removeEvent(MyData event){
+    setState(() {
+      myDataList.remove(event);
+    });
+  }
+
+  int _currentIndex = 0;
 
   void editEvent(int index, MyData updatedEvent) {
     setState(() {
@@ -121,71 +129,69 @@ class _MyEventsState extends State<MyEvents> {
 
           backgroundColor: const Color.fromARGB(245, 39, 2, 88),
 
-          elevation: 2,
+        //leading: Image.asset('assets/logo2.png', width: 30, height: 30),
+        leading: Image.asset('assets/Logo2.png', width: 25, height: 25),
 
-          //leading: Image.asset('assets/logo2.png', width: 30, height: 30),
-          leading: Image.asset('assets/logo2.png', width: 25, height: 25),
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Navigator(
-                initialRoute: '/',
-                onGenerateRoute: (RouteSettings settings) {
-                  WidgetBuilder builder;
-                  switch (settings.name) {
-                    case '/':
-                    case '/home':
-                      builder = (BuildContext _) =>
-                          HomeScreen(myDataList: myDataList);
-                      break;
-                    case '/add-event':
-                      builder = (BuildContext _) =>
-                          AddEvent(addEvent: addEvent);
-                      break;
-                    case '/event-details':
-                      final args = settings.arguments as Map<String, dynamic>;
-                      final index=args['index'] as int;
-                      final myData = args['event'] as MyData;
-                      builder = (BuildContext _) =>
-                          EventDetails(
-                            index: index,
-                            myData: myData,
-                            );
-                      break;
-                    case '/edit-event':
-                      final args = settings.arguments as Map<String, dynamic>;
-                      final index = args['index'] as int;
-                      final myData = args['event'] as MyData;
-                      builder = (BuildContext _) => EditEvent(
-                        editEvent: (event) => editEvent(index, event),
-                        event: myData,
-                      );
-                      break;
-                    default:
-                      throw Exception('Invalid route: ${settings.name}');
-                  }
-                  return MaterialPageRoute(
-                    builder: builder,
-                    settings: settings,
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Wishlist',
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-          currentIndex: 0,
-          onTap: (index) {},
-        ),
+      ),
+      body: _currentIndex == 0
+          ? Column(
+              children: [
+                Expanded(
+                  child: Navigator(
+                    initialRoute: '/',
+                    onGenerateRoute: (RouteSettings settings) {
+                      WidgetBuilder builder;
+                      switch (settings.name) {
+                        case '/':
+                        case '/home':
+                          builder = (BuildContext _) => HomeScreen(myDataList: myDataList,);
+                          break;
+                        case '/add-event':
+                          builder = (BuildContext _) => AddEvent(addEvent: addEvent,);
+                          break;
+                        case '/event-details':
+                          final myData = settings.arguments as MyData;
+                          builder = (BuildContext _) => EventDetails(myData: myData, removeEvent: removeEvent);
+                          break;
+                        default:
+                          throw Exception('Invalid route: ${settings.name}');
+                      }
+                      return MaterialPageRoute(builder: builder, settings: settings);
+                    },
+                  ),
+                )
+              ],
+            )
+          : _currentIndex == 1
+              ? Center(
+                  child: Text(
+                    'Wishlist coming soon',
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+                  ),
+                )
+              : const UserProfile(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Wishlist',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
       ),
     );
   }
