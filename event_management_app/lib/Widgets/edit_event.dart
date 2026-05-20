@@ -1,66 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:event_management_app/Widgets/event_class.dart';
 
+class EditEvent extends StatefulWidget {
+  final MyData event;
+  final Function(MyData) editEvent;
 
-
-
-class AddEvent extends StatefulWidget {
-  final Function(MyData) addEvent;
-
-  const AddEvent({
-    super.key,
-    required this.addEvent,
-  });
+  const EditEvent({super.key, required this.event, required this.editEvent});
 
   @override
-  State<AddEvent> createState() => _AddEventState();
+  State<EditEvent> createState() => _EditEventState();
 }
 
-class _AddEventState extends State<AddEvent> {
-
-
+class _EditEventState extends State<EditEvent> {
   Column header(String text) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        text,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          text,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 51, 7, 108),
+          ),
+          textAlign: TextAlign.start,
+        ),
+        const SizedBox(height: 5),
+        Container(
+          height: 3,
+          width: 140,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 39, 2, 88),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+        ),
+      ],
+    );
+  }
+
+  InputDecoration design(String label, IconData icon) {
+    return InputDecoration(
+      labelText: label,
+      prefixIcon: Icon(icon),
+      border: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+        borderSide: BorderSide(
           color: Color.fromARGB(255, 51, 7, 108),
-        ),
-        textAlign: TextAlign.start,
-      ),
-      const SizedBox(height: 5),
-      Container(
-        height: 3,
-        width: 140,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 39, 2, 88),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          width: 2,
         ),
       ),
-    ],
-  );
-}
-
-InputDecoration design(String label, IconData icon) {
-  return InputDecoration(
-    labelText: label,
-    prefixIcon: Icon(icon),
-    border: const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-    ),
-    focusedBorder: const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      borderSide: BorderSide(color: Color.fromARGB(255, 51, 7, 108), width: 2),
-    ),
-    filled: true,
-    fillColor: const Color.fromARGB(255, 255, 255, 255),
-  );
-}
-
+      filled: true,
+      fillColor: const Color.fromARGB(255, 255, 255, 255),
+    );
+  }
 
   final _formkey = GlobalKey<FormState>();
 
@@ -71,8 +66,26 @@ InputDecoration design(String label, IconData icon) {
   final TextEditingController collegeController = TextEditingController();
   final TextEditingController departmentController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
-  final TextEditingController registrationInfoController = TextEditingController();
-  final TextEditingController registrationLinkController = TextEditingController();
+  final TextEditingController registrationInfoController =
+      TextEditingController();
+  final TextEditingController registrationLinkController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = widget.event.name;
+    taglineController.text = widget.event.tagline;
+    descriptionController.text = widget.event.description;
+    collegeController.text = widget.event.college;
+    departmentController.text = widget.event.department;
+    locationController.text = widget.event.location;
+    registrationInfoController.text = widget.event.registrationInfo;
+    registrationLinkController.text = widget.event.registrationLink;
+    dateController.text = widget.event.date != null
+        ? "${widget.event.date!.year}-${widget.event.date!.month.toString().padLeft(2, '0')}-${widget.event.date!.day.toString().padLeft(2, '0')} ${widget.event.date!.hour.toString().padLeft(2, '0')}:${widget.event.date!.minute.toString().padLeft(2, '0')}"
+        : "";
+  }
 
   @override
   void dispose() {
@@ -91,43 +104,43 @@ InputDecoration design(String label, IconData icon) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formkey,
-            child: ListView(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back, color: Colors.grey),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formkey,
+          child: ListView(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back, color: Colors.grey),
+                  ),
+                  Text(
+                    'Edit Event',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 51, 7, 108),
                     ),
-                    Text( 
-                      'Add New Event',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 51, 7, 108),
-                      ),
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+              Container(
+                height: 3,
+                width: 140,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 39, 2, 88),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
-                Container(
-        height: 3,
-        width: 140,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 39, 2, 88),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
-      ),
+              ),
 
-                SizedBox(height: 40,),
-                header("Basic Details"),
-                const SizedBox(height: 20),
+              SizedBox(height: 40),
+              header("Basic Details"),
+              const SizedBox(height: 20),
               //Text("Basic Details", style: Theme.of(context).textTheme.headlineSmall),
               TextFormField(
                 decoration: design('Event Name', Icons.event),
@@ -149,9 +162,8 @@ InputDecoration design(String label, IconData icon) {
                   }
                   return null;
                 },
-                
               ),
-              SizedBox(height: 20), 
+              SizedBox(height: 20),
               TextFormField(
                 controller: descriptionController,
                 decoration: design('Description', Icons.description),
@@ -162,7 +174,6 @@ InputDecoration design(String label, IconData icon) {
                   }
                   return null;
                 },
-                
               ),
               SizedBox(height: 40),
               header("Organizational Details"),
@@ -176,7 +187,6 @@ InputDecoration design(String label, IconData icon) {
                   }
                   return null;
                 },
-               
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -188,7 +198,6 @@ InputDecoration design(String label, IconData icon) {
                   }
                   return null;
                 },
-               
               ),
               SizedBox(height: 40),
               header("Event Details"),
@@ -258,7 +267,6 @@ InputDecoration design(String label, IconData icon) {
                   }
                   return null;
                 },
-                
               ),
               // Divider(height: 40, thickness: 2),
               SizedBox(height: 40),
@@ -285,7 +293,6 @@ InputDecoration design(String label, IconData icon) {
                   }
                   return null;
                 },
-                
               ),
               SizedBox(height: 30),
               Row(
@@ -295,10 +302,12 @@ InputDecoration design(String label, IconData icon) {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 39, 2, 88),
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 15,
+                      ),
                     ),
                     onPressed: () {
-                      
                       if (_formkey.currentState!.validate()) {
                         _formkey.currentState!.save();
                         MyData event = MyData(
@@ -307,38 +316,57 @@ InputDecoration design(String label, IconData icon) {
                           description: descriptionController.text,
                           college: collegeController.text,
                           //image: Image.asset('assets/placeholder.png'),
-                          date: DateTime.parse(dateController.text),
+                          date: DateTime.parse(
+                            dateController.text.replaceFirst(' ', 'T') + ':00',
+                          ),
                           department: departmentController.text,
                           location: locationController.text,
                           registrationInfo: registrationInfoController.text,
                           registrationLink: registrationLinkController.text,
                         );
-                        widget.addEvent(event);
+                        widget.editEvent(event);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Event added successfully')),
+                          const SnackBar(
+                            content: Text('Event edited successfully'),
+                          ),
                         );
-                      
+
                         Navigator.pop(context);
                       }
-                      
                     },
-                    child: const Text('Add Event'),
+                    child: const Text('Edit Event'),
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 39, 2, 88),
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 15,
+                      ),
                     ),
                     onPressed: () {
                       _formkey.currentState!.reset();
-                      
+
+                      setState(() {
+                        nameController.text = widget.event.name;
+                        taglineController.text = widget.event.tagline;
+                        descriptionController.text = widget.event.description;
+                        collegeController.text = widget.event.college;
+                        departmentController.text = widget.event.department;
+                        locationController.text = widget.event.location;
+                        registrationInfoController.text =
+                            widget.event.registrationInfo;
+                        registrationLinkController.text =
+                            widget.event.registrationLink;
+                        dateController.text = widget.event.date != null
+                            ? "${widget.event.date!.year}-${widget.event.date!.month.toString().padLeft(2, '0')}-${widget.event.date!.day.toString().padLeft(2, '0')} ${widget.event.date!.hour.toString().padLeft(2, '0')}:${widget.event.date!.minute.toString().padLeft(2, '0')}"
+                            : "";
+                      });
                     },
                     child: const Text('Reset'),
                   ),
-
                 ],
-                
               ),
               SizedBox(width: 50),
               // Add more form fields for other event details
@@ -346,7 +374,6 @@ InputDecoration design(String label, IconData icon) {
           ),
         ),
       ),
-      );
-    
+    );
   }
 }

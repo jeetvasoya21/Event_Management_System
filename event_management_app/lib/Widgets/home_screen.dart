@@ -181,13 +181,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 itemBuilder: (context, index) {
                   final e = newDataList[index];
+                  final originalIndex = widget.myDataList.indexOf(e);
 
                   return InkWell(
                     onTap: () {
                       Navigator.pushNamed(
                         context,
                         '/event-details',
-                        arguments: e,
+                        arguments: {
+                          'index': originalIndex,
+                          'event': widget.myDataList[originalIndex],
+                        },
                       );
                     },
                  child: SimpleCardWidget(e: e),
