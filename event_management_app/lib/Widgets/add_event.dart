@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:event_management_app/Widgets/my_events.dart';
+import 'package:event_management_app/Widgets/event_class.dart';
 
 
 Column header(String text) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
         text,
         style: const TextStyle(
-          fontSize: 24,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
           color: Color.fromARGB(255, 51, 7, 108),
         ),
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.start,
       ),
       const SizedBox(height: 5),
       Container(
         height: 3,
-        width: 100,
+        width: 140,
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 39, 2, 88),
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -46,7 +46,12 @@ InputDecoration design(String label, IconData icon) {
 
 
 class AddEvent extends StatefulWidget {
-  const AddEvent({super.key});
+  final Function(MyData) addEvent;
+
+  const AddEvent({
+    super.key,
+    required this.addEvent,
+  });
 
   @override
   State<AddEvent> createState() => _AddEventState();
@@ -68,12 +73,43 @@ class _AddEventState extends State<AddEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Form(
-          key: _formkey,
-          child: ListView(
-            children: [
-              header("Basic Details"),
-              const SizedBox(height: 20),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formkey,
+            child: ListView(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.arrow_back, color: Colors.grey),
+                    ),
+                    Text( 
+                      'Add New Event',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 51, 7, 108),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+        height: 3,
+        width: 140,
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 39, 2, 88),
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+      ),
+
+                SizedBox(height: 40,),
+                header("Basic Details"),
+                const SizedBox(height: 20),
               //Text("Basic Details", style: Theme.of(context).textTheme.headlineSmall),
               TextFormField(
                 decoration: design('Event Name', Icons.event),
@@ -103,6 +139,7 @@ class _AddEventState extends State<AddEvent> {
               SizedBox(height: 20), 
               TextFormField(
                 decoration: design('Description', Icons.description),
+                maxLines: 4,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter event description";
@@ -171,6 +208,7 @@ class _AddEventState extends State<AddEvent> {
                     lastDate: DateTime(2101),
                   );
 
+                  if (!mounted) return;
                   if (pickedDate == null) return;
 
                   TimeOfDay? pickedTime = await showTimePicker(
@@ -178,6 +216,7 @@ class _AddEventState extends State<AddEvent> {
                     initialTime: TimeOfDay.now(),
                   );
 
+                  if (!mounted) return;
                   if (pickedTime == null) return;
 
                   DateTime finalDateTime = DateTime(
@@ -210,8 +249,8 @@ class _AddEventState extends State<AddEvent> {
                   event.location = value ?? "";
                 },
               ),
-              Divider(height: 40, thickness: 2),
-              //SizedBox(height: 40),
+              // Divider(height: 40, thickness: 2),
+              SizedBox(height: 40),
               header("Registration"),
               const SizedBox(height: 20),
               TextFormField(
@@ -239,7 +278,7 @@ class _AddEventState extends State<AddEvent> {
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
                         _formkey.currentState!.save();
-                        myDataList.add(event);
+                        widget.addEvent(event);
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Event added successfully')),
                         );
@@ -270,6 +309,7 @@ class _AddEventState extends State<AddEvent> {
             ],
           ),
         ),
+      ),
       );
     
   }

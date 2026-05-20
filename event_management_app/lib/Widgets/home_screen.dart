@@ -1,26 +1,22 @@
 import 'package:event_management_app/Widgets/simple_card_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:event_management_app/Widgets/my_events.dart';
+import 'package:event_management_app/Widgets/event_class.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<MyData> myDataList;
 
-  HomeScreen({super.key, required this.myDataList});
+  const HomeScreen({super.key, required this.myDataList});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>{
-  // List<String> colleges = ['All', ...myDataList.map((data) => data.college).toSet().toList()];
-
-  // List<String> departments = ['All', ...myDataList.map((data) => data.department).toSet().toList()];
-
+class _HomeScreenState extends State<HomeScreen> {
   var selectedCollege = 'All';
   var selectedDepartment = 'All';
 
   List<MyData> get newDataList {
-    return myDataList.where((data) {
+    return widget.myDataList.where((data) {
       final newselectedCollege =
           selectedCollege == 'All' || data.college == selectedCollege;
 
@@ -31,29 +27,17 @@ class _HomeScreenState extends State<HomeScreen>{
     }).toList();
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addObserver(this);
-  // }
-
-  // @override
-  // void didPopNext() {
-  //   setState(() {});
-  // }
-
-  // @override
-  // void dispose() {
-  //   WidgetsBinding.instance.removeObserver(this);
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
+    List<String> colleges = [
+      'All',
+      ...widget.myDataList.map((data) => data.college).toSet(),
+    ];
 
-    List<String> colleges = ['All', ...myDataList.map((data) => data.college).toSet().toList()];
-
-  List<String> departments = ['All', ...myDataList.map((data) => data.department).toSet().toList()];
+    List<String> departments = [
+      'All',
+      ...widget.myDataList.map((data) => data.department).toSet(),
+    ];
 
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -197,15 +181,8 @@ class _HomeScreenState extends State<HomeScreen>{
                 itemBuilder: (context, index) {
                   final e = newDataList[index];
 
-                  return SimpleCardWidget(
-                    title: e.name,
-                    description: e.description,
-                    image: e.image,
-                    college: e.college,
-                    department: e.department,
-                    date: e.date,
-                    location: e.location,
-                  );
+                  return SimpleCardWidget(e: e);
+                  
                 },
               ),
             ),

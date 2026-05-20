@@ -1,30 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:event_management_app/Widgets/home_screen.dart';
 import 'package:event_management_app/Widgets/add_event.dart';
-//import 'package:event_management_app/Widgets/home_screen.dart';
-class MyData {
-  String name="";
-  late Image image;
-  String tagline="";
-  String description="";
-  String college="";
-  String department="";
-  DateTime? date;
-  String location="";
-  String registrationInfo="";
-  String registrationLink="";
-  MyData(
-    this.name,
-    this.description,
-    this.college,
-    this.department,
-    this.image,
-    this.date,
-    this.location,
-  );
+import 'package:event_management_app/Widgets/event_class.dart';
+
+class MyEvents extends StatefulWidget {
+  const MyEvents({super.key});
+  
+
+
+  @override
+  State<MyEvents> createState() => _MyEventsState();
 }
 
-final List<MyData> myDataList = [
+class _MyEventsState extends State<MyEvents> {
+
+  List<MyData> myDataList = [
   MyData(
     'Event 1',
     'Description for Event 1',
@@ -80,21 +70,19 @@ final List<MyData> myDataList = [
     'Exhibition Center',
   ),
 ];
+  // List<MyData> events=[];
+  // void setData(List<MyData> data){
+  //   setState(() {
+  //     events=data;
+  //   });
+  // }
 
-class MyEvents extends StatefulWidget {
-  const MyEvents({super.key});
-
-  @override
-  State<MyEvents> createState() => _MyEventsState();
-}
-
-class _MyEventsState extends State<MyEvents> {
-  List<MyData> events=[];
-  void setData(List<MyData> data){
+  void addEvent(MyData event){
     setState(() {
-      events=data;
+      myDataList.add(event);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -145,7 +133,7 @@ class _MyEventsState extends State<MyEvents> {
                     builder = (BuildContext _) => HomeScreen(myDataList: myDataList,);
                     break;
                   case '/add-event':
-                    builder = (BuildContext _) => AddEvent();
+                    builder = (BuildContext _) => AddEvent(addEvent: addEvent,);
                     break;
                   default:
                     throw Exception('Invalid route: ${settings.name}');
