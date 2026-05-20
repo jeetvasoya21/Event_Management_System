@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyData {
   String name="";
-  late Image image;
+   Image image=Image.asset('assets/placeholder.png');
   String tagline="";
   String description="";
   String college="";
@@ -16,7 +16,7 @@ class MyData {
     required this.tagline,
     required this.college,
     required this.department,
-    required this.image,
+    //required this.image,
     required this.date,
     required this.location,
     required this.registrationInfo,
