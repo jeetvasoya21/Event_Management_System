@@ -23,6 +23,10 @@ class _MyEventsState extends State<MyEvents> {
     Image.asset('assets/placeholder.png'),
     DateTime.parse('2024-06-01'),
     'Auditorium',
+    'Register at example.com',
+    'This is a tagline for Event 1',
+    'https://example.com/register-event-1',
+
   ),
   MyData(
     'Event 2',
@@ -32,6 +36,9 @@ class _MyEventsState extends State<MyEvents> {
     Image.asset('assets/placeholder.png'),
     DateTime.parse('2024-06-02'),
     'Conference Room',
+    'Register at example.com',
+    'This is a tagline for Event 2', 
+    'https://example.com/register-event-2', 
   ),
   MyData(
     'Event 3',
@@ -41,6 +48,9 @@ class _MyEventsState extends State<MyEvents> {
     Image.asset('assets/placeholder.png'),
     DateTime.parse('2024-06-03'),
     'Outdoor Stage',
+    'Register at example.com',
+    'This is a tagline for Event 3',
+    'https://example.com/register-event-3',
   ),
   MyData(
     'Event 4',
@@ -50,6 +60,9 @@ class _MyEventsState extends State<MyEvents> {
     Image.asset('assets/placeholder.png'),
     DateTime.parse('2024-06-04'),
     'Main Hall',
+    'Register at example.com',
+    'This is a tagline for Event 4',
+    'https://example.com/register-event-4',
   ),
   MyData(
     'Event 5',
@@ -59,6 +72,9 @@ class _MyEventsState extends State<MyEvents> {
     Image.asset('assets/placeholder.png'),
     DateTime.parse('2024-06-05'),
     'Lecture Theater',
+    'Register at example.com',
+    'This is a tagline for Event 5',
+    'https://example.com/register-event-5',
   ),
   MyData(
     'Event 6',
@@ -68,6 +84,9 @@ class _MyEventsState extends State<MyEvents> {
     Image.asset('assets/placeholder.png'),
     DateTime.parse('2024-06-06'),
     'Exhibition Center',
+    'Register at example.com',
+    'This is a tagline for Event 6',
+    'https://example.com/register-event-6',
   ),
 ];
   // List<MyData> events=[];
@@ -106,19 +125,8 @@ class _MyEventsState extends State<MyEvents> {
         elevation: 2,
 
         //leading: Image.asset('assets/logo2.png', width: 30, height: 30),
-        leading: BackButton(
-          color: Colors.white,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        leading: Image.asset('assets/logo2.png', width: 25, height: 25),
 
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.add, color: Colors.white),
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -134,6 +142,10 @@ class _MyEventsState extends State<MyEvents> {
                     break;
                   case '/add-event':
                     builder = (BuildContext _) => AddEvent(addEvent: addEvent,);
+                    break;
+                  case '/event-details':
+                    final myData = settings.arguments as MyData;
+                    builder = (BuildContext _) => EventDetails(myData: myData);
                     break;
                   default:
                     throw Exception('Invalid route: ${settings.name}');

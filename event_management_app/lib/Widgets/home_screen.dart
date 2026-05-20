@@ -2,6 +2,7 @@ import 'package:event_management_app/Widgets/simple_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:event_management_app/Widgets/event_class.dart';
 
+
 class HomeScreen extends StatefulWidget {
   final List<MyData> myDataList;
 
@@ -181,7 +182,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   final e = newDataList[index];
 
-                  return SimpleCardWidget(e: e);
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/event-details',
+                        arguments: e,
+                      );
+                    },
+                 child: SimpleCardWidget(
+                    title: e.name,
+                    description: e.description,
+                    image: e.image,
+                    college: e.college,
+                    department: e.department,
+                    date: e.date,
+                    location: e.location,
+                  
+                  ),
+                  );
                   
                 },
               ),
