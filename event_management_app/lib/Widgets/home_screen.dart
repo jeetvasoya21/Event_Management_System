@@ -190,16 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         arguments: e,
                       );
                     },
-                 child: SimpleCardWidget(
-                    title: e.name,
-                    description: e.description,
-                    image: e.image,
-                    college: e.college,
-                    department: e.department,
-                    date: e.date,
-                    location: e.location,
-                  
-                  ),
+                 child: SimpleCardWidget(e: e),
                   );
                   
                 },

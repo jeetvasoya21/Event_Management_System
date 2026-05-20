@@ -11,13 +11,17 @@ class MyData {
   String location="";
   String registrationInfo="";
   String registrationLink="";
-  MyData(
-    this.name,
-    this.tagline,
-    this.college,
-    this.department,
-    this.image,
-    this.date,
-    this.location,
+  MyData({
+    required this.name,
+    required this.tagline,
+    required this.college,
+    required this.department,
+    required this.image,
+    required this.date,
+    required this.location,
+    required this.registrationInfo,
+    required this.description,
+    required this.registrationLink,
+  }
   );
 }

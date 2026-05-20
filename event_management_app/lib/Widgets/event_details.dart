@@ -1,4 +1,4 @@
-import 'package:event_management_app/Widgets/my_events.dart';
+import 'package:event_management_app/Widgets/event_class.dart';
 import 'package:flutter/material.dart';
 
 class EventDetails extends StatelessWidget {

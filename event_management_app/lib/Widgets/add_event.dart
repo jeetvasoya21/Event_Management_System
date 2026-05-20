@@ -60,13 +60,16 @@ class AddEvent extends StatefulWidget {
 class _AddEventState extends State<AddEvent> {
   final _formkey = GlobalKey<FormState>();
   final MyData event = MyData(
-    "",
-    "",
-    "",
-    "",
-    Image.asset('assets/placeholder.png'),
-    null,
-    "",
+    name: "",
+    tagline: "",
+    description: "",
+    college: "",
+    image: Image.asset('assets/placeholder.png'),
+    date: null,
+    department: "",
+    location: "",
+    registrationInfo: "",
+    registrationLink: "",
   );
   final TextEditingController dateController = TextEditingController();
 
