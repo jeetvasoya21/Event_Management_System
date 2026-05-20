@@ -2,27 +2,21 @@ import 'package:event_management_app/Widgets/event_class.dart';
 import 'package:flutter/material.dart';
 
 class EventDetails extends StatelessWidget {
-
   final MyData myData;
 
-
-  const EventDetails({
-    super.key,
-    required this.myData,
-  });
-
+  const EventDetails({super.key, required this.myData});
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    
+
     // Responsive values
     double imageHeight = screenHeight * 0.25;
     double titleFontSize = screenWidth > 600 ? 28 : 24;
     double descriptionFontSize = screenWidth > 600 ? 14 : 13;
     double infoFontSize = screenWidth > 600 ? 14 : 13;
     double padding = screenWidth > 600 ? 16.0 : 12.0;
-    
+
     return Scaffold(
       backgroundColor: const Color(0xFFF4F6FB),
 
@@ -33,7 +27,10 @@ class EventDetails extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Color.fromARGB(245, 39, 2, 88)),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Color.fromARGB(245, 39, 2, 88),
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
                 const Text(
@@ -44,15 +41,13 @@ class EventDetails extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-              ],  
+              ],
             ),
-            
+
             Container(
               width: double.infinity,
               height: imageHeight,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Image(
                 image: myData.image.image,
                 width: double.infinity,
@@ -86,7 +81,7 @@ class EventDetails extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: padding * 1.5),
-                  Text( 
+                  Text(
                     myData.description,
                     style: TextStyle(
                       fontSize: descriptionFontSize,
@@ -97,15 +92,40 @@ class EventDetails extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   // Event Info
-                  eventInfoRow(Icons.apartment, 'College', myData.college, infoFontSize),
+                  eventInfoRow(
+                    Icons.apartment,
+                    'College',
+                    myData.college,
+                    infoFontSize,
+                  ),
                   SizedBox(height: padding),
-                  eventInfoRow(Icons.school, 'Department', myData.department, infoFontSize),
+                  eventInfoRow(
+                    Icons.school,
+                    'Department',
+                    myData.department,
+                    infoFontSize,
+                  ),
                   SizedBox(height: padding),
-                  eventInfoRow(Icons.date_range, 'Date', myData.date!.toString().split(' ')[0], infoFontSize),
+                  eventInfoRow(
+                    Icons.date_range,
+                    'Date',
+                    myData.date!.toString().split(' ')[0],
+                    infoFontSize,
+                  ),
                   SizedBox(height: padding),
-                  eventInfoRow(Icons.location_on, 'Location', myData.location, infoFontSize),
+                  eventInfoRow(
+                    Icons.location_on,
+                    'Location',
+                    myData.location,
+                    infoFontSize,
+                  ),
                   SizedBox(height: padding * 1.75),
-                  eventInfoRow(Icons.info, 'Registration Info', myData.registrationInfo, infoFontSize),
+                  eventInfoRow(
+                    Icons.info,
+                    'Registration Info',
+                    myData.registrationInfo,
+                    infoFontSize,
+                  ),
                   SizedBox(height: padding),
 
                   // Action Buttons
@@ -114,33 +134,38 @@ class EventDetails extends StatelessWidget {
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            myData.registrationLink; // Handle registration link tap
+                            myData
+                                .registrationLink; // Handle registration link tap
                           },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(245, 39, 2, 88),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: padding),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.check_circle, color: Colors.white, size: 20),
-                                SizedBox(width: padding * 0.5),
-                                Text(
-                                  'Register',
-                                  style: TextStyle(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(245, 39, 2, 88),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: padding),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.check_circle,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: infoFontSize,
+                                    size: 20,
                                   ),
-                                ),
-                              ],
+                                  SizedBox(width: padding * 0.5),
+                                  Text(
+                                    'Register',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: infoFontSize,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
                       ),
                       SizedBox(width: padding),
                       Container(
@@ -153,7 +178,10 @@ class EventDetails extends StatelessWidget {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: padding, horizontal: padding * 0.75),
+                          padding: EdgeInsets.symmetric(
+                            vertical: padding,
+                            horizontal: padding * 0.75,
+                          ),
                           child: const Icon(
                             Icons.share,
                             color: Color.fromARGB(245, 39, 2, 88),
@@ -172,7 +200,10 @@ class EventDetails extends StatelessWidget {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: padding, horizontal: padding * 0.75),
+                          padding: EdgeInsets.symmetric(
+                            vertical: padding,
+                            horizontal: padding * 0.75,
+                          ),
                           child: const Icon(
                             Icons.delete,
                             color: Color.fromARGB(245, 39, 2, 88),
@@ -190,7 +221,11 @@ class EventDetails extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Handle edit event action
+          // Navigator.pushNamed(
+          //   context,
+          //   '/edit-event',
+          //   arguments: {'index': index, 'event': myDataList[index]},
+          // );
         },
         backgroundColor: const Color.fromARGB(245, 39, 2, 88),
         child: const Icon(Icons.edit, color: Colors.white),
@@ -198,14 +233,15 @@ class EventDetails extends StatelessWidget {
     );
   }
 
-  Widget eventInfoRow(IconData icon, String label, String value, double fontSize) {
+  Widget eventInfoRow(
+    IconData icon,
+    String label,
+    String value,
+    double fontSize,
+  ) {
     return Row(
       children: [
-        Icon(
-          icon,
-          color: const Color.fromARGB(245, 39, 2, 88),
-          size: 20,
-        ),
+        Icon(icon, color: const Color.fromARGB(245, 39, 2, 88), size: 20),
         const SizedBox(width: 12),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,5 +269,5 @@ class EventDetails extends StatelessWidget {
         ),
       ],
     );
-}
+  }
 }

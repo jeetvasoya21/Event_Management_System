@@ -4,20 +4,23 @@ import 'package:event_management_app/Widgets/event_class.dart';
 
 
 
-class AddEvent extends StatefulWidget {
-  final Function(MyData) addEvent;
 
-  const AddEvent({
+class EditEvent extends StatefulWidget {
+  
+  final MyData event;
+  final Function(MyData) editEvent;
+
+  const EditEvent({
     super.key,
-    required this.addEvent,
+    required this.event,
+    required this.editEvent,
   });
 
   @override
-  State<AddEvent> createState() => _AddEventState();
+  State<EditEvent> createState() => _EditEventState();
 }
 
-class _AddEventState extends State<AddEvent> {
-
+class _EditEventState extends State<EditEvent> {
 
   Column header(String text) {
   return Column(
@@ -61,7 +64,6 @@ InputDecoration design(String label, IconData icon) {
   );
 }
 
-
   final _formkey = GlobalKey<FormState>();
 
   final TextEditingController dateController = TextEditingController();
@@ -73,6 +75,20 @@ InputDecoration design(String label, IconData icon) {
   final TextEditingController locationController = TextEditingController();
   final TextEditingController registrationInfoController = TextEditingController();
   final TextEditingController registrationLinkController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = widget.event.name;
+    taglineController.text = widget.event.tagline;
+    descriptionController.text = widget.event.description;
+    collegeController.text = widget.event.college;
+    departmentController.text = widget.event.department;
+    locationController.text = widget.event.location;
+    registrationInfoController.text = widget.event.registrationInfo;
+    registrationLinkController.text = widget.event.registrationLink;
+    dateController.text = widget.event.date != null ? "${widget.event.date!.year}-${widget.event.date!.month.toString().padLeft(2, '0')}-${widget.event.date!.day.toString().padLeft(2, '0')} ${widget.event.date!.hour.toString().padLeft(2, '0')}:${widget.event.date!.minute.toString().padLeft(2, '0')}" : "";
+  }
 
   @override
   void dispose() {
@@ -107,7 +123,7 @@ InputDecoration design(String label, IconData icon) {
                       icon: const Icon(Icons.arrow_back, color: Colors.grey),
                     ),
                     Text( 
-                      'Add New Event',
+                      'Edit Event',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -298,7 +314,6 @@ InputDecoration design(String label, IconData icon) {
                       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                     ),
                     onPressed: () {
-                      
                       if (_formkey.currentState!.validate()) {
                         _formkey.currentState!.save();
                         MyData event = MyData(
@@ -313,16 +328,16 @@ InputDecoration design(String label, IconData icon) {
                           registrationInfo: registrationInfoController.text,
                           registrationLink: registrationLinkController.text,
                         );
-                        widget.addEvent(event);
+                        widget.editEvent(event);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Event added successfully')),
+                          const SnackBar(content: Text('Event edited successfully')),
                         );
                       
                         Navigator.pop(context);
                       }
                       
                     },
-                    child: const Text('Add Event'),
+                    child: const Text('Edit Event'),
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
