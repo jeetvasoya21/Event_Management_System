@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:event_management_app/Widgets/edit_event.dart';
 import 'package:event_management_app/Widgets/event_details.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:event_management_app/Widgets/home_screen.dart';
 import 'package:event_management_app/Widgets/add_event.dart';
 import 'package:event_management_app/Widgets/event_class.dart';
 import 'package:event_management_app/Widgets/user_profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyEvents extends StatefulWidget {
   const MyEvents({super.key});
@@ -83,22 +85,30 @@ class _MyEventsState extends State<MyEvents> {
       registrationLink: 'https://example.com/register-event-6',
     ),
   ];
-  // List<MyData> events=[];
-  // void setData(List<MyData> data){
-  //   setState(() {
-  //     events=data;
-  //   });
-  // }
-
+  
+  Future<void> saveInfo() async {
+    try{
+      final sharedPreferences = await SharedPreferences.getInstance();
+      String jsonString = jsonEncode(myDataList.map((event) => event.toJson()).toList());
+      await sharedPreferences.setString('myDataList', jsonString);
+      
+    }
+    catch(e){
+      print('Error saving data: $e');
+    }
+  }
+  
   void addEvent(MyData event) {
     setState(() {
       myDataList.add(event);
     });
+      saveInfo();
   }
   void removeEvent(MyData event){
     setState(() {
       myDataList.remove(event);
     });
+      saveInfo();
   }
 
   int _currentIndex = 0;
@@ -107,6 +117,7 @@ class _MyEventsState extends State<MyEvents> {
     setState(() {
       myDataList[index] = updatedEvent;
     });
+      saveInfo();
   }
 
   @override
