@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:event_management_app/Widgets/event_class.dart';
 
 class SimpleCardWidget extends StatelessWidget {
-  
+
   final MyData e;
-  
 
   const SimpleCardWidget({
     super.key,
@@ -13,157 +12,236 @@ class SimpleCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final screenWidth = MediaQuery.of(context).size.width;
-    
-    // Calculate responsive image height based on screen size
+
     double imageHeight;
+
     if (screenWidth > 1200) {
-      // Web/large tablet: smaller height to prevent overflow
       imageHeight = 120;
     } else if (screenWidth > 600) {
-      // Tablet: medium height
       imageHeight = 150;
     } else {
-      // Mobile: larger height ratio
-      imageHeight = screenWidth * 0.35;
+      imageHeight = screenWidth * 0.32;
     }
 
-   
-        return Container(
-          decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        
+    return Container(
+
+      decoration: BoxDecoration(
+
+        color: const Color.fromARGB(255, 20, 30, 48),
+
+        borderRadius: BorderRadius.circular(18),
+
+        border: Border.all(
+          color: const Color(0xFF81D4FA).withAlpha((0.12*255).round()),
+        ),
+
         boxShadow: [
           BoxShadow(
-            color: Colors.black,
-            blurRadius: 4,
-          
-            offset: const Offset(0, 2),
+            color: Colors.black.withAlpha((0.28*255).round()),
+            blurRadius: 12,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
-        constraints: const BoxConstraints(minHeight: 56),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        
-       
-        child: 
-            Column(
 
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                
-                SizedBox(
-                  width: double.infinity,
-                  height: imageHeight,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: Image.asset(
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+
+        child: Column(
+
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            /// IMAGE
+            ClipRRect(
+              borderRadius: BorderRadius.circular(14),
+
+              child: SizedBox(
+                width: double.infinity,
+                height: imageHeight,
+
+                child: Stack(
+                  children: [
+
+                    Image.asset(
                       'assets/placeholder.png',
                       fit: BoxFit.cover,
+                      width: double.infinity,
                     ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  e.name,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                
-               Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Icon(Icons.apartment, size: 16, color: Colors.grey[600]),
-                          const SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              e.college,
-                              style: const TextStyle(fontSize: 16, color: Colors.grey),
-                             
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                  
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Icon(Icons.school, size: 16, color: Colors.grey[600]),
-                          const SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              e.department,
-                              style: const TextStyle(fontSize: 16, color: Colors.grey),
-                              
-                            ),
-                          ),
-                        ],
+
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withAlpha((0.22*255).round()),
+                          ],
+                        ),
                       ),
                     ),
                   ],
-
                 ),
-                const SizedBox(height: 6),
-                
-                  Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Icon(Icons.date_range, size: 16, color: Colors.grey[600]),
-                          const SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              e.date.toString().split(' ')[0].split('-').reversed.join('-'),
-                              style: const TextStyle(fontSize: 16, color: Colors.grey),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Icon(Icons.location_on, size: 16, color: Colors.grey[600]),
-                          const SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              e.location,
-                              style: const TextStyle(fontSize: 16, color: Colors.grey),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+              ),
+            ),
 
+            const SizedBox(height: 12),
+
+            /// TITLE
+            Text(
+              e.name,
+
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFB3E5FC),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            /// COLLEGE + DEPARTMENT
+            Row(
+              children: [
+
+                Expanded(
+                  child: infoItem(
+                    Icons.apartment,
+                    e.college,
+                  ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  e.tagline,
-                  style: const TextStyle(fontSize: 16, color: Colors.grey),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
+
+                const SizedBox(width: 8),
+
+                Expanded(
+                  child: infoItem(
+                    Icons.school,
+                    e.department,
+                  ),
                 ),
               ],
             ),
-          
-        )
-      );
-    
+
+            const SizedBox(height: 10),
+
+            /// DATE + LOCATION
+            Row(
+              children: [
+
+                Expanded(
+                  child: infoItem(
+                    Icons.date_range,
+                    e.date
+                        .toString()
+                        .split(' ')[0]
+                        .split('-')
+                        .reversed
+                        .join('-'),
+                  ),
+                ),
+
+                const SizedBox(width: 8),
+
+                Expanded(
+                  child: infoItem(
+                    Icons.location_on,
+                    e.location,
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            /// TAGLINE
+            Expanded(
+              child: Container(
+
+                width: double.infinity,
+
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha((0.04*255).round()),
+
+                  borderRadius: BorderRadius.circular(12),
+
+                  border: Border.all(
+                    color: Colors.white.withAlpha((0.05*255).round()),
+                  ),
+                ),
+
+                child: Text(
+                  e.tagline,
+
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF81D4FA),
+                    height: 1.4,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget infoItem(IconData icon, String text) {
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children: [
+
+        Container(
+          padding: const EdgeInsets.all(5),
+
+          decoration: BoxDecoration(
+            color: const Color(0xFF81D4FA).withAlpha((0.12*255).round()),
+            borderRadius: BorderRadius.circular(8),
+          ),
+
+          child: Icon(
+            icon,
+            size: 14,
+            color: const Color(0xFF81D4FA),
+          ),
+        ),
+
+        const SizedBox(width: 6),
+
+        Expanded(
+          child: Text(
+            text,
+
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+
+            style: const TextStyle(
+              fontSize: 13,
+              color: Colors.white70,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
