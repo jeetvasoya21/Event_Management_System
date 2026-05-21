@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:event_management_app/Widgets/event_class.dart';
 
 class SimpleCardWidget extends StatelessWidget {
-
   final MyData e;
 
   const SimpleCardWidget({
@@ -12,7 +11,6 @@ class SimpleCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final screenWidth = MediaQuery.of(context).size.width;
 
     double imageHeight;
@@ -26,20 +24,18 @@ class SimpleCardWidget extends StatelessWidget {
     }
 
     return Container(
-
       decoration: BoxDecoration(
-
         color: const Color.fromARGB(255, 20, 30, 48),
-
         borderRadius: BorderRadius.circular(18),
 
         border: Border.all(
-          color: const Color(0xFF81D4FA).withAlpha((0.12*255).round()),
+          color: const Color(0xFF81D4FA)
+              .withAlpha((0.12 * 255).round()),
         ),
 
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha((0.28*255).round()),
+            color: Colors.black.withAlpha((0.28 * 255).round()),
             blurRadius: 12,
             offset: const Offset(0, 5),
           ),
@@ -50,8 +46,8 @@ class SimpleCardWidget extends StatelessWidget {
         padding: const EdgeInsets.all(14),
 
         child: Column(
-
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
 
           children: [
 
@@ -80,7 +76,9 @@ class SimpleCardWidget extends StatelessWidget {
 
                           colors: [
                             Colors.transparent,
-                            Colors.black.withAlpha((0.22*255).round()),
+                            Colors.black.withAlpha(
+                              (0.22 * 255).round(),
+                            ),
                           ],
                         ),
                       ),
@@ -162,38 +160,39 @@ class SimpleCardWidget extends StatelessWidget {
             const SizedBox(height: 12),
 
             /// TAGLINE
-            Expanded(
-              child: Container(
+            Container(
+              width: double.infinity,
 
-                width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 8,
+              ),
 
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(
+                  (0.04 * 255).round(),
                 ),
 
-                decoration: BoxDecoration(
-                  color: Colors.white.withAlpha((0.04*255).round()),
+                borderRadius: BorderRadius.circular(12),
 
-                  borderRadius: BorderRadius.circular(12),
-
-                  border: Border.all(
-                    color: Colors.white.withAlpha((0.05*255).round()),
+                border: Border.all(
+                  color: Colors.white.withAlpha(
+                    (0.05 * 255).round(),
                   ),
                 ),
+              ),
 
-                child: Text(
-                  e.tagline,
+              child: Text(
+                e.tagline,
 
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
 
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF81D4FA),
-                    height: 1.4,
-                    fontStyle: FontStyle.italic,
-                  ),
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF81D4FA),
+                  height: 1.4,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
             ),
@@ -203,8 +202,10 @@ class SimpleCardWidget extends StatelessWidget {
     );
   }
 
-  Widget infoItem(IconData icon, String text) {
-
+  Widget infoItem(
+    IconData icon,
+    String text,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -214,7 +215,9 @@ class SimpleCardWidget extends StatelessWidget {
           padding: const EdgeInsets.all(5),
 
           decoration: BoxDecoration(
-            color: const Color(0xFF81D4FA).withAlpha((0.12*255).round()),
+            color: const Color(0xFF81D4FA)
+                .withAlpha((0.12 * 255).round()),
+
             borderRadius: BorderRadius.circular(8),
           ),
 

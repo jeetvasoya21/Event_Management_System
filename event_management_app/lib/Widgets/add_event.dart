@@ -16,118 +16,6 @@ class AddEvent extends StatefulWidget {
 
 class _AddEventState extends State<AddEvent> {
 
-  /// SECTION HEADER
-  Column header(String text) {
-
-    return Column(
-
-      crossAxisAlignment: CrossAxisAlignment.start,
-
-      children: [
-
-        Text(
-          text,
-
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFB3E5FC),
-          ),
-
-          textAlign: TextAlign.start,
-        ),
-
-        const SizedBox(height: 6),
-
-        Container(
-          height: 3,
-          width: 140,
-
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [
-                Color(0xFF81D4FA),
-                Color.fromARGB(255, 0, 180, 216),
-              ],
-            ),
-
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ],
-    );
-  }
-
-  /// INPUT FIELD DESIGN
-  InputDecoration design(String label, IconData icon) {
-
-    return InputDecoration(
-
-      labelText: label,
-
-      labelStyle: const TextStyle(
-        color: Colors.white70,
-      ),
-
-      prefixIcon: Icon(
-        icon,
-        color: const Color(0xFF81D4FA),
-      ),
-
-      filled: true,
-
-      fillColor: const Color.fromARGB(255, 20, 30, 48),
-
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 18,
-      ),
-
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-
-        borderSide: BorderSide(
-          color: Colors.white.withAlpha((0.08*255).round()),
-        ),
-      ),
-
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-
-        borderSide: BorderSide(
-          color: Colors.white.withAlpha((0.08*255).round()),
-        ),
-      ),
-
-      focusedBorder: const OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(14)),
-
-        borderSide: BorderSide(
-          color: Color(0xFF81D4FA),
-          width: 2,
-        ),
-      ),
-
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-
-        borderSide: const BorderSide(
-          color: Colors.redAccent,
-          width: 1.5,
-        ),
-      ),
-
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-
-        borderSide: const BorderSide(
-          color: Colors.redAccent,
-          width: 2,
-        ),
-      ),
-    );
-  }
-
   final _formkey = GlobalKey<FormState>();
 
   final TextEditingController dateController =
@@ -173,16 +61,151 @@ class _AddEventState extends State<AddEvent> {
     super.dispose();
   }
 
+  /// HEADER
+  Column header(String text) {
+
+    return Column(
+
+      crossAxisAlignment:
+          CrossAxisAlignment.start,
+
+      children: [
+
+        Text(
+          text,
+
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFB3E5FC),
+          ),
+        ),
+
+        const SizedBox(height: 6),
+
+        Container(
+          height: 3,
+          width: 140,
+
+          decoration: BoxDecoration(
+
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFF81D4FA),
+                Color.fromARGB(255, 0, 180, 216),
+              ],
+            ),
+
+            borderRadius:
+                BorderRadius.circular(10),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// INPUT DESIGN
+  InputDecoration design(
+    String label,
+    IconData icon,
+  ) {
+
+    return InputDecoration(
+
+      labelText: label,
+
+      labelStyle: const TextStyle(
+        color: Colors.white70,
+      ),
+
+      prefixIcon: Icon(
+        icon,
+        color: const Color(0xFF81D4FA),
+      ),
+
+      filled: true,
+
+      fillColor:
+          const Color.fromARGB(255, 20, 30, 48),
+
+      contentPadding:
+          const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 18,
+      ),
+
+      border: OutlineInputBorder(
+        borderRadius:
+            BorderRadius.circular(14),
+
+        borderSide: BorderSide(
+          color: Colors.white.withAlpha(
+            (0.08 * 255).round(),
+          ),
+        ),
+      ),
+
+      enabledBorder: OutlineInputBorder(
+        borderRadius:
+            BorderRadius.circular(14),
+
+        borderSide: BorderSide(
+          color: Colors.white.withAlpha(
+            (0.08 * 255).round(),
+          ),
+        ),
+      ),
+
+      focusedBorder:
+          const OutlineInputBorder(
+
+        borderRadius:
+            BorderRadius.all(
+          Radius.circular(14),
+        ),
+
+        borderSide: BorderSide(
+          color: Color(0xFF81D4FA),
+          width: 2,
+        ),
+      ),
+
+      errorBorder: OutlineInputBorder(
+        borderRadius:
+            BorderRadius.circular(14),
+
+        borderSide: const BorderSide(
+          color: Colors.redAccent,
+          width: 1.5,
+        ),
+      ),
+
+      focusedErrorBorder:
+          OutlineInputBorder(
+
+        borderRadius:
+            BorderRadius.circular(14),
+
+        borderSide: const BorderSide(
+          color: Colors.redAccent,
+          width: 2,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
 
-      backgroundColor: const Color(0xFF081B2A),
+      backgroundColor:
+          const Color(0xFF081B2A),
 
       body: Container(
 
         decoration: const BoxDecoration(
+
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -197,7 +220,9 @@ class _AddEventState extends State<AddEvent> {
         child: SafeArea(
 
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+
+            padding:
+                const EdgeInsets.all(16),
 
             child: Form(
 
@@ -210,29 +235,35 @@ class _AddEventState extends State<AddEvent> {
                   /// TOP BAR
                   Row(
 
-                    mainAxisAlignment:
-                        MainAxisAlignment.start,
-
                     children: [
 
                       Container(
 
-                        decoration: BoxDecoration(
-                          color: Colors.white.withAlpha((0.06*255).round()),
+                        decoration:
+                            BoxDecoration(
+
+                          color: Colors.white
+                              .withAlpha(
+                            (0.06 * 255)
+                                .round(),
+                          ),
 
                           borderRadius:
-                              BorderRadius.circular(12),
+                              BorderRadius
+                                  .circular(12),
                         ),
 
                         child: IconButton(
 
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.pop(
+                                context);
                           },
 
                           icon: const Icon(
                             Icons.arrow_back,
-                            color: Color(0xFF81D4FA),
+                            color:
+                                Color(0xFF81D4FA),
                           ),
                         ),
                       ),
@@ -244,8 +275,10 @@ class _AddEventState extends State<AddEvent> {
 
                         style: TextStyle(
                           fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFB3E5FC),
+                          fontWeight:
+                              FontWeight.bold,
+                          color:
+                              Color(0xFFB3E5FC),
                         ),
                       ),
                     ],
@@ -258,14 +291,22 @@ class _AddEventState extends State<AddEvent> {
                     width: 160,
 
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
+
+                      gradient:
+                          const LinearGradient(
                         colors: [
                           Color(0xFF81D4FA),
-                          Color.fromARGB(255, 0, 180, 216),
+                          Color.fromARGB(
+                              255,
+                              0,
+                              180,
+                              216),
                         ],
                       ),
 
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius:
+                          BorderRadius
+                              .circular(10),
                     ),
                   ),
 
@@ -276,8 +317,11 @@ class _AddEventState extends State<AddEvent> {
 
                   const SizedBox(height: 22),
 
+                  /// EVENT NAME
                   TextFormField(
-                    controller: nameController,
+
+                    controller:
+                        nameController,
 
                     style: const TextStyle(
                       color: Colors.white,
@@ -289,17 +333,34 @@ class _AddEventState extends State<AddEvent> {
                     ),
 
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+
+                      if (value == null ||
+                          value
+                              .trim()
+                              .isEmpty) {
+
                         return "Please enter event name";
                       }
+
+                      if (value
+                              .trim()
+                              .length <
+                          3) {
+
+                        return "Event name is too short";
+                      }
+
                       return null;
                     },
                   ),
 
                   const SizedBox(height: 20),
 
+                  /// TAGLINE
                   TextFormField(
-                    controller: taglineController,
+
+                    controller:
+                        taglineController,
 
                     style: const TextStyle(
                       color: Colors.white,
@@ -311,17 +372,34 @@ class _AddEventState extends State<AddEvent> {
                     ),
 
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+
+                      if (value == null ||
+                          value
+                              .trim()
+                              .isEmpty) {
+
                         return "Please enter event tagline";
                       }
+
+                      if (value
+                              .trim()
+                              .length <
+                          5) {
+
+                        return "Tagline is too short";
+                      }
+
                       return null;
                     },
                   ),
 
                   const SizedBox(height: 20),
 
+                  /// DESCRIPTION
                   TextFormField(
-                    controller: descriptionController,
+
+                    controller:
+                        descriptionController,
 
                     style: const TextStyle(
                       color: Colors.white,
@@ -335,22 +413,41 @@ class _AddEventState extends State<AddEvent> {
                     maxLines: 4,
 
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+
+                      if (value == null ||
+                          value
+                              .trim()
+                              .isEmpty) {
+
                         return "Please enter event description";
                       }
+
+                      if (value
+                              .trim()
+                              .length <
+                          15) {
+
+                        return "Description is too short";
+                      }
+
                       return null;
                     },
                   ),
 
                   const SizedBox(height: 40),
 
-                  /// ORGANIZATIONAL DETAILS
-                  header("Organizational Details"),
+                  /// ORGANIZATION
+                  header(
+                    "Organizational Details",
+                  ),
 
                   const SizedBox(height: 22),
 
+                  /// COLLEGE
                   TextFormField(
-                    controller: collegeController,
+
+                    controller:
+                        collegeController,
 
                     style: const TextStyle(
                       color: Colors.white,
@@ -362,17 +459,34 @@ class _AddEventState extends State<AddEvent> {
                     ),
 
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+
+                      if (value == null ||
+                          value
+                              .trim()
+                              .isEmpty) {
+
                         return "Please enter college name";
                       }
+
+                      if (value
+                              .trim()
+                              .length <
+                          3) {
+
+                        return "College name is too short";
+                      }
+
                       return null;
                     },
                   ),
 
                   const SizedBox(height: 20),
 
+                  /// DEPARTMENT
                   TextFormField(
-                    controller: departmentController,
+
+                    controller:
+                        departmentController,
 
                     style: const TextStyle(
                       color: Colors.white,
@@ -384,9 +498,23 @@ class _AddEventState extends State<AddEvent> {
                     ),
 
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+
+                      if (value == null ||
+                          value
+                              .trim()
+                              .isEmpty) {
+
                         return "Please enter department name";
                       }
+
+                      if (value
+                              .trim()
+                              .length <
+                          2) {
+
+                        return "Department name is too short";
+                      }
+
                       return null;
                     },
                   ),
@@ -398,8 +526,11 @@ class _AddEventState extends State<AddEvent> {
 
                   const SizedBox(height: 22),
 
+                  /// DATE
                   TextFormField(
-                    controller: dateController,
+
+                    controller:
+                        dateController,
 
                     style: const TextStyle(
                       color: Colors.white,
@@ -407,100 +538,66 @@ class _AddEventState extends State<AddEvent> {
 
                     readOnly: true,
 
-                    enableInteractiveSelection: false,
-
                     decoration: design(
                       'Date & Time',
                       Icons.calendar_today,
                     ),
 
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+
+                      if (value == null ||
+                          value
+                              .trim()
+                              .isEmpty) {
+
                         return "Please select date and time";
                       }
+
                       return null;
                     },
 
                     onTap: () async {
 
                       FocusScope.of(context)
-                          .requestFocus(FocusNode());
+                          .unfocus();
 
                       DateTime? pickedDate =
                           await showDatePicker(
 
                         context: context,
 
-                        initialDate: DateTime.now(),
+                        initialDate:
+                            DateTime.now(),
 
-                        firstDate: DateTime(2000),
+                        firstDate:
+                            DateTime(2000),
 
-                        lastDate: DateTime(2101),
-
-                        builder: (context, child) {
-
-                          return Theme(
-
-                            data: Theme.of(context).copyWith(
-
-                              colorScheme:
-                                  const ColorScheme.dark(
-
-                                primary: Color(0xFF81D4FA),
-
-                                onPrimary:
-                                    Color.fromARGB(255, 21, 0, 46),
-
-                                surface:
-                                    Color.fromARGB(255, 20, 30, 48),
-
-                                onSurface: Colors.white,
-                              ),
-                            ),
-
-                            child: child!,
-                          );
-                        },
+                        lastDate:
+                            DateTime(2101),
                       );
 
-                      if (!mounted) return;
-                      if (pickedDate == null) return;
+                      if (pickedDate ==
+                          null) {
+                        return;
+                      }
+
+                      if (!mounted) {
+                        return;
+                      }
 
                       TimeOfDay? pickedTime =
                           await showTimePicker(
 
                         context: context,
 
-                        initialTime: TimeOfDay.now(),
-
-                        builder: (context, child) {
-
-                          return Theme(
-
-                            data: Theme.of(context).copyWith(
-
-                              colorScheme:
-                                  const ColorScheme.dark(
-
-                                primary: Color(0xFF81D4FA),
-
-                                onPrimary:
-                                    Color.fromARGB(255, 21, 0, 46),
-
-                                surface:
-                                    Color.fromARGB(255, 20, 30, 48),
-
-                                onSurface: Colors.white,
-                              ),
-                            ),
-
-                            child: child!,
-                          );
-                        },
+                        initialTime:
+                            TimeOfDay.now(),
                       );
 
-                      if (!mounted) return;
-                      if (pickedTime == null) return;
+                      if (pickedTime ==
+                          null) {
+                        return;
+                      }
 
                       setState(() {
 
@@ -513,8 +610,11 @@ class _AddEventState extends State<AddEvent> {
 
                   const SizedBox(height: 20),
 
+                  /// LOCATION
                   TextFormField(
-                    controller: locationController,
+
+                    controller:
+                        locationController,
 
                     style: const TextStyle(
                       color: Colors.white,
@@ -526,9 +626,15 @@ class _AddEventState extends State<AddEvent> {
                     ),
 
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter event location";
+
+                      if (value == null ||
+                          value
+                              .trim()
+                              .isEmpty) {
+
+                        return "Please enter location";
                       }
+
                       return null;
                     },
                   ),
@@ -540,8 +646,11 @@ class _AddEventState extends State<AddEvent> {
 
                   const SizedBox(height: 22),
 
+                  /// REGISTRATION INFO
                   TextFormField(
-                    controller: registrationInfoController,
+
+                    controller:
+                        registrationInfoController,
 
                     style: const TextStyle(
                       color: Colors.white,
@@ -555,17 +664,26 @@ class _AddEventState extends State<AddEvent> {
                     maxLines: 4,
 
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+
+                      if (value == null ||
+                          value
+                              .trim()
+                              .isEmpty) {
+
                         return "Please enter registration info";
                       }
+
                       return null;
                     },
                   ),
 
                   const SizedBox(height: 20),
 
+                  /// REGISTRATION LINK
                   TextFormField(
-                    controller: registrationLinkController,
+
+                    controller:
+                        registrationLinkController,
 
                     style: const TextStyle(
                       color: Colors.white,
@@ -577,9 +695,15 @@ class _AddEventState extends State<AddEvent> {
                     ),
 
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+
+                      if (value == null ||
+                          value
+                              .trim()
+                              .isEmpty) {
+
                         return "Please enter registration link";
                       }
+
                       return null;
                     },
                   ),
@@ -589,111 +713,179 @@ class _AddEventState extends State<AddEvent> {
                   /// BUTTONS
                   Row(
 
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceEvenly,
-
                     children: [
 
-                      /// ADD EVENT BUTTON
+                      /// ADD BUTTON
                       Expanded(
-                        child: ElevatedButton(
 
-                          style: ElevatedButton.styleFrom(
+                        child:
+                            ElevatedButton(
 
-                            elevation: 6,
+                          style:
+                              ElevatedButton
+                                  .styleFrom(
 
                             backgroundColor:
-                                const Color(0xFF81D4FA),
+                                const Color(
+                              0xFF81D4FA,
+                            ),
 
                             foregroundColor:
-                                const Color.fromARGB(
-                                    255,
-                                    21,
-                                    0,
-                                    46),
+                                const Color
+                                    .fromARGB(
+                              255,
+                              21,
+                              0,
+                              46,
+                            ),
 
                             padding:
-                                const EdgeInsets.symmetric(
+                                const EdgeInsets
+                                    .symmetric(
                               vertical: 16,
                             ),
 
-                            shape: RoundedRectangleBorder(
+                            shape:
+                                RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.circular(14),
+                                  BorderRadius
+                                      .circular(
+                                          14),
                             ),
                           ),
 
                           onPressed: () {
 
-                            if (_formkey.currentState!
-                                .validate()) {
+                            FocusScope.of(context)
+                                .unfocus();
 
-                              _formkey.currentState!.save();
+                            final isValid =
+                                _formkey
+                                    .currentState!
+                                    .validate();
 
-                              MyData event = MyData(
-                                name: nameController.text,
+                            if (!isValid) {
+                              return;
+                            }
 
-                                tagline:
-                                    taglineController.text,
+                            final name =
+                                nameController
+                                    .text
+                                    .trim();
 
-                                description:
-                                    descriptionController.text,
+                            final tagline =
+                                taglineController
+                                    .text
+                                    .trim();
 
-                                college:
-                                    collegeController.text,
+                            final description =
+                                descriptionController
+                                    .text
+                                    .trim();
 
-                                date: DateTime.parse(
-                                    dateController.text),
+                            final college =
+                                collegeController
+                                    .text
+                                    .trim();
 
-                                department:
-                                    departmentController.text,
+                            final department =
+                                departmentController
+                                    .text
+                                    .trim();
 
-                                location:
-                                    locationController.text,
+                            final location =
+                                locationController
+                                    .text
+                                    .trim();
 
-                                registrationInfo:
-                                    registrationInfoController
-                                        .text,
+                            final registrationInfo =
+                                registrationInfoController
+                                    .text
+                                    .trim();
 
-                                registrationLink:
-                                    registrationLinkController
-                                        .text,
-                              );
+                            final registrationLink =
+                                registrationLinkController
+                                    .text
+                                    .trim();
 
-                              widget.addEvent(event);
+                            /// EXTRA SAFETY CHECK
+                            if (name.isEmpty ||
+                                tagline.isEmpty ||
+                                description.isEmpty ||
+                                college.isEmpty ||
+                                department.isEmpty) {
 
-                              ScaffoldMessenger.of(context)
+                              ScaffoldMessenger
+                                      .of(context)
                                   .showSnackBar(
 
-                                SnackBar(
-
-                                  backgroundColor:
-                                      const Color.fromARGB(
-                                          255,
-                                          20,
-                                          30,
-                                          48),
-
-                                  content: const Text(
-                                    'Event added successfully',
-
-                                    style: TextStyle(
-                                      color:
-                                          Color(0xFF81D4FA),
-                                    ),
+                                const SnackBar(
+                                  content: Text(
+                                    'Please fill all required fields',
                                   ),
                                 ),
                               );
 
-                              Navigator.pop(context);
+                              return;
                             }
+
+                            MyData event =
+                                MyData(
+
+                              name: name,
+
+                              tagline: tagline,
+
+                              description:
+                                  description,
+
+                              college: college,
+
+                              department:
+                                  department,
+
+                              location:
+                                  location,
+
+                              registrationInfo:
+                                  registrationInfo,
+
+                              registrationLink:
+                                  registrationLink,
+
+                              date:
+                                  DateTime.parse(
+                                dateController
+                                    .text,
+                              ),
+                            );
+
+                            widget.addEvent(
+                              event,
+                            );
+
+                            ScaffoldMessenger
+                                    .of(context)
+                                .showSnackBar(
+
+                              const SnackBar(
+                                content: Text(
+                                  'Event added successfully',
+                                ),
+                              ),
+                            );
+
+                            Navigator.pop(
+                              context,
+                            );
                           },
 
                           child: const Text(
                             'Add Event',
 
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  FontWeight.bold,
                             ),
                           ),
                         ),
@@ -703,57 +895,89 @@ class _AddEventState extends State<AddEvent> {
 
                       /// RESET BUTTON
                       Expanded(
-                        child: ElevatedButton(
 
-                          style: ElevatedButton.styleFrom(
+                        child:
+                            ElevatedButton(
 
-                            elevation: 0,
+                          style:
+                              ElevatedButton
+                                  .styleFrom(
 
                             backgroundColor:
-                                const Color.fromARGB(
-                                    255,
-                                    20,
-                                    30,
-                                    48),
+                                const Color
+                                    .fromARGB(
+                              255,
+                              20,
+                              30,
+                              48,
+                            ),
 
                             foregroundColor:
-                                const Color(0xFF81D4FA),
+                                const Color(
+                              0xFF81D4FA,
+                            ),
 
-                            side: const BorderSide(
-                              color: Color(0xFF81D4FA),
+                            side:
+                                const BorderSide(
+                              color: Color(
+                                  0xFF81D4FA),
                             ),
 
                             padding:
-                                const EdgeInsets.symmetric(
+                                const EdgeInsets
+                                    .symmetric(
                               vertical: 16,
                             ),
 
-                            shape: RoundedRectangleBorder(
+                            shape:
+                                RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.circular(14),
+                                  BorderRadius
+                                      .circular(
+                                          14),
                             ),
                           ),
 
                           onPressed: () {
 
-                            _formkey.currentState!.reset();
+                            _formkey
+                                .currentState!
+                                .reset();
 
-                            nameController.clear();
-                            taglineController.clear();
-                            descriptionController.clear();
-                            collegeController.clear();
-                            departmentController.clear();
-                            locationController.clear();
-                            registrationInfoController.clear();
-                            registrationLinkController.clear();
-                            dateController.clear();
+                            nameController
+                                .clear();
+
+                            taglineController
+                                .clear();
+
+                            descriptionController
+                                .clear();
+
+                            collegeController
+                                .clear();
+
+                            departmentController
+                                .clear();
+
+                            locationController
+                                .clear();
+
+                            registrationInfoController
+                                .clear();
+
+                            registrationLinkController
+                                .clear();
+
+                            dateController
+                                .clear();
                           },
 
                           child: const Text(
                             'Reset',
 
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  FontWeight.bold,
                             ),
                           ),
                         ),
