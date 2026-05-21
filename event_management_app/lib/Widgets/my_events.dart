@@ -9,6 +9,10 @@ import 'package:event_management_app/Widgets/user_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyEvents extends StatefulWidget {
+  
+
+  
+
   const MyEvents({super.key});
 
   @override
@@ -16,6 +20,28 @@ class MyEvents extends StatefulWidget {
 }
 
 class _MyEventsState extends State<MyEvents> {
+  Future<void> loadInfo() async {
+    try{
+      final sharedPreferences = await SharedPreferences.getInstance();
+      String? jsonString = sharedPreferences.getString('myDataList');
+      if(jsonString != null){
+        List<dynamic> jsonList = jsonDecode(jsonString);
+        setState(() {
+          myDataList = jsonList.map((json) => MyData.fromJson(json)).toList();
+        });
+      }
+    }
+    catch(e){
+      print('Error loading data: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadInfo();
+  }
+
   List<MyData> myDataList = [
     MyData(
       name: 'Event 1',

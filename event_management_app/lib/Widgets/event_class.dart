@@ -37,4 +37,18 @@ class MyData {
       'registrationLink': registrationLink,
     };
   }
+  factory MyData.fromJson(Map<String,dynamic> json){
+    return MyData(
+      name: json['name'] ?? '',
+      tagline: json['tagline'] ?? '',
+      college: json['college'] ?? '',
+      department: json['department'] ?? '',
+      date: DateTime.tryParse(json['date'] ?? ''),
+      location: json['location'] ?? '',
+      registrationInfo: json['registrationInfo'] ?? '',
+      description: json['description'] ?? '',
+      registrationLink: json['registrationLink'] ?? '',
+    );
+  }
 }
+
