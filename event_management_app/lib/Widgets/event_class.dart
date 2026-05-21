@@ -24,4 +24,17 @@ class MyData {
     required this.registrationLink,
   }
   );
+  Map<String,dynamic> toJson(){
+    return {
+      'name': name,
+      'tagline': tagline,
+      'college': college,
+      'department': department,
+      'date': date?.toIso8601String(),
+      'location': location,
+      'registrationInfo': registrationInfo,
+      'description': description,
+      'registrationLink': registrationLink,
+    };
+  }
 }
