@@ -2,21 +2,15 @@ import 'package:event_management_app/Widgets/event_class.dart';
 import 'package:flutter/material.dart';
 
 
-  final MyData myData;
-  final void Function(MyData) removeEvent;
-
-  const EventDetails({
-    super.key,
-    required this.myData,
-    required this.removeEvent,
-  });
 
 
 class EventDetails extends StatelessWidget {
+
   final MyData myData;
   final int index;
+  final Function(MyData) removeEvent;
 
-  const EventDetails({super.key, required this.myData, required this.index});
+  const EventDetails({super.key, required this.myData, required this.index,required this.removeEvent});
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

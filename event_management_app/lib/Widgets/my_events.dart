@@ -150,8 +150,23 @@ class _MyEventsState extends State<MyEvents> {
                           builder = (BuildContext _) => AddEvent(addEvent: addEvent,);
                           break;
                         case '/event-details':
-                          final myData = settings.arguments as MyData;
-                          builder = (BuildContext _) => EventDetails(myData: myData, removeEvent: removeEvent);
+                          final args = settings.arguments as Map<String, dynamic>;
+                          final myData = args['event'] as MyData;
+                          final index = args['index'] as int;
+                          builder = (BuildContext _) => EventDetails(
+                            myData: myData,
+                            index: index,
+                            removeEvent: removeEvent,
+                          );
+                          break;
+                        case '/edit-event':
+                          final args = settings.arguments as Map<String, dynamic>;
+                          final myData = args['event'] as MyData;
+                          final index = args['index'] as int;
+                          builder = (BuildContext _) => EditEvent(
+                            event: myData,
+                            editEvent: (updatedEvent) => editEvent(index, updatedEvent),
+                          );
                           break;
                         default:
                           throw Exception('Invalid route: ${settings.name}');
