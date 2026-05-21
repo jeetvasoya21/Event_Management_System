@@ -5,6 +5,8 @@ import 'package:event_management_app/Widgets/home_screen.dart';
 import 'package:event_management_app/Widgets/add_event.dart';
 import 'package:event_management_app/Widgets/event_class.dart';
 import 'package:event_management_app/Widgets/user_profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class MyEvents extends StatefulWidget {
   const MyEvents({super.key});
@@ -14,6 +16,27 @@ class MyEvents extends StatefulWidget {
 }
 
 class _MyEventsState extends State<MyEvents> {
+  Future<void> loadInfo() async {
+    try{
+      final sharedPreferences = await SharedPreferences.getInstance();
+      String? jsonString = sharedPreferences.getString('myDataList');
+      if(jsonString != null){
+        List<dynamic> jsonList = jsonDecode(jsonString);
+        setState(() {
+          myDataList = jsonList.map((json) => MyData.fromJson(json)).toList();
+        });
+      }
+    }
+    catch(e){
+      print('Error loading data: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadInfo();
+  }
   List<MyData> myDataList = [
     MyData(
       name: 'Event 1',
@@ -81,19 +104,32 @@ class _MyEventsState extends State<MyEvents> {
       description: 'This is a tagline for Event 6',
       registrationLink: 'https://example.com/register-event-6',
     ),
-  ];
+   ];
+  Future<void> saveInfo() async {
+    try{
+      final sharedPreferences = await SharedPreferences.getInstance();
+      String jsonString = jsonEncode(myDataList.map((event) => event.toJson()).toList());
+      await sharedPreferences.setString('myDataList', jsonString);
+      
+    }
+    catch(e){
+      print('Error saving data: $e');
+    }
+  }
   
 
   void addEvent(MyData event) {
     setState(() {
       myDataList.add(event);
     });
+    saveInfo();
   }
 
   void removeEvent(MyData event) {
     setState(() {
       myDataList.remove(event);
     });
+    saveInfo();
   }
 
   int _currentIndex = 0;
@@ -102,6 +138,7 @@ class _MyEventsState extends State<MyEvents> {
     setState(() {
       myDataList[index] = updatedEvent;
     });
+    saveInfo();
   }
 
   @override
