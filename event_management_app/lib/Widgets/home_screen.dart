@@ -76,12 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     child: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(8),
                       child: DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: 'Select College',
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8),       
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -112,11 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 const SizedBox(width: 12),
 
-                Expanded(
+               Expanded(
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black,
@@ -127,15 +127,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     child: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(8),
                       child: DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: 'Select Department',
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(8),       
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
                               color: const Color.fromARGB(255, 9, 203, 190),
                               width: 2,
