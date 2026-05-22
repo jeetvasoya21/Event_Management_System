@@ -7,6 +7,7 @@ import 'package:event_management_app/Widgets/add_event.dart';
 import 'package:event_management_app/Widgets/event_class.dart';
 import 'package:event_management_app/Widgets/user_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class MyEvents extends StatefulWidget {
   
@@ -103,15 +104,13 @@ class _MyEventsState extends State<MyEvents> {
       tagline: 'Tagline for Event 6',
       college: 'College 3',
       department: 'CP',
-      //image: Image.asset('assets/placeholder.png'),
       date: DateTime.parse('2024-06-06'),
       location: 'Exhibition Center',
       registrationInfo: 'Register at example.com',
       description: 'This is a tagline for Event 6',
       registrationLink: 'https://example.com/register-event-6',
     ),
-  ];
-  
+   ];
   Future<void> saveInfo() async {
     try{
       final sharedPreferences = await SharedPreferences.getInstance();
@@ -124,17 +123,19 @@ class _MyEventsState extends State<MyEvents> {
     }
   }
   
+
   void addEvent(MyData event) {
     setState(() {
       myDataList.add(event);
     });
-      saveInfo();
+    saveInfo();
   }
-  void removeEvent(MyData event){
+
+  void removeEvent(MyData event) {
     setState(() {
       myDataList.remove(event);
     });
-      saveInfo();
+    saveInfo();
   }
 
   int _currentIndex = 0;
@@ -143,107 +144,253 @@ class _MyEventsState extends State<MyEvents> {
     setState(() {
       myDataList[index] = updatedEvent;
     });
-      saveInfo();
+    saveInfo();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       home: Scaffold(
-        backgroundColor: const Color(0xFFF4F6FB),
+        backgroundColor: const Color(0xFF081B2A),
 
         appBar: AppBar(
+          elevation: 0,
+
+          centerTitle: true,
+
+          backgroundColor: const Color.fromARGB(255, 1, 36, 57),
+
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color.fromARGB(255, 1, 36, 57),
+                  Color.fromARGB(228, 21, 0, 46),
+                ],
+              ),
+            ),
+          ),
+
           title: const Text(
             'SyncUp',
 
             style: TextStyle(
-              color: Colors.white,
+              color: Color(0xFFB3E5FC),
               fontWeight: FontWeight.bold,
-              fontSize: 18,
+              fontSize: 20,
+              letterSpacing: 1,
             ),
           ),
 
-          backgroundColor: const Color.fromARGB(245, 39, 2, 88),
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
 
-        //leading: Image.asset('assets/logo2.png', width: 30, height: 30),
-        leading: Image.asset('assets/Logo2.png', width: 25, height: 25),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha((0.08*255).round()),
+                borderRadius: BorderRadius.circular(12),
+              ),
 
-      ),
-      body: _currentIndex == 0
-          ? Column(
-              children: [
-                Expanded(
-                  child: Navigator(
-                    initialRoute: '/',
-                    onGenerateRoute: (RouteSettings settings) {
-                      WidgetBuilder builder;
-                      switch (settings.name) {
-                        case '/':
-                        case '/home':
-                          builder = (BuildContext _) => HomeScreen(myDataList: myDataList,);
-                          break;
-                        case '/add-event':
-                          builder = (BuildContext _) => AddEvent(addEvent: addEvent,);
-                          break;
-                        case '/event-details':
-                          final args = settings.arguments as Map<String, dynamic>;
-                          final myData = args['event'] as MyData;
-                          final index = args['index'] as int;
-                          builder = (BuildContext _) => EventDetails(
-                            myData: myData,
-                            index: index,
-                            removeEvent: removeEvent,
-                          );
-                          break;
-                        case '/edit-event':
-                          final args = settings.arguments as Map<String, dynamic>;
-                          final myData = args['event'] as MyData;
-                          final index = args['index'] as int;
-                          builder = (BuildContext _) => EditEvent(
-                            event: myData,
-                            editEvent: (updatedEvent) => editEvent(index, updatedEvent),
-                          );
-                          break;
-                        default:
-                          throw Exception('Invalid route: ${settings.name}');
-                      }
-                      return MaterialPageRoute(builder: builder, settings: settings);
-                    },
-                  ),
-                )
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Image.asset(
+                  'assets/Logo2.png',
+                  width: 25,
+                  height: 25,
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromARGB(255, 1, 36, 57),
+                Color.fromARGB(228, 21, 0, 46),
               ],
-            )
-          : _currentIndex == 1
-              ? Center(
-                  child: Text(
-                    'Wishlist coming soon',
-                    style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
-                  ),
+            ),
+          ),
+
+          child: _currentIndex == 0
+              ? Column(
+                  children: [
+                    Expanded(
+                      child: Navigator(
+                        initialRoute: '/',
+
+                        onGenerateRoute: (RouteSettings settings) {
+                          WidgetBuilder builder;
+
+                          switch (settings.name) {
+                            case '/':
+                            case '/home':
+                              builder = (BuildContext _) => HomeScreen(
+                                    myDataList: myDataList,
+                                  );
+                              break;
+
+                            case '/add-event':
+                              builder = (BuildContext _) => AddEvent(
+                                    addEvent: addEvent,
+                                  );
+                              break;
+
+                            case '/event-details':
+                              final args =
+                                  settings.arguments as Map<String, dynamic>;
+
+                              final myData = args['event'] as MyData;
+                              final index = args['index'] as int;
+
+                              builder = (BuildContext _) => EventDetails(
+                                    myData: myData,
+                                    index: index,
+                                    removeEvent: removeEvent,
+                                  );
+                              break;
+
+                            case '/edit-event':
+                              final args =
+                                  settings.arguments as Map<String, dynamic>;
+
+                              final myData = args['event'] as MyData;
+                              final index = args['index'] as int;
+
+                              builder = (BuildContext _) => EditEvent(
+                                    event: myData,
+                                    editEvent: (updatedEvent) =>
+                                        editEvent(index, updatedEvent),
+                                  );
+                              break;
+
+                            default:
+                              throw Exception(
+                                'Invalid route: ${settings.name}',
+                              );
+                          }
+
+                          return MaterialPageRoute(
+                            builder: builder,
+                            settings: settings,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 )
-              : const UserProfile(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+
+              : _currentIndex == 1
+                  ? Center(
+                      child: Container(
+                        margin: const EdgeInsets.all(20),
+
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 18,
+                        ),
+
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 20, 30, 48),
+
+                          borderRadius: BorderRadius.circular(18),
+
+                          border: Border.all(
+                            color: const Color(0xFF81D4FA).withAlpha((0.2*255).round()),
+                          ),
+
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withAlpha((0.25*255).round()),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                        ),
+
+                        child: Text(
+                          'Wishlist coming soon',
+
+                          style: TextStyle(
+                            color: Colors.white.withAlpha((0.85*255).round()),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    )
+
+                  : const UserProfile(),
+        ),
+
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color.fromARGB(255, 1, 36, 57),
+                Color.fromARGB(228, 21, 0, 46),
+              ],
+            ),
+
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withAlpha((0.3*255).round()),
+                blurRadius: 10,
+                offset: const Offset(0, -2),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Wishlist',
+
+          child: BottomNavigationBar(
+            backgroundColor: Colors.transparent,
+
+            elevation: 0,
+
+            currentIndex: _currentIndex,
+
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+
+            selectedItemColor: const Color(0xFF81D4FA),
+
+            unselectedItemColor: Colors.white60,
+
+            selectedLabelStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+
+            type: BottomNavigationBarType.fixed,
+
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Wishlist',
+              ),
+
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
+        ),
       ),
     );
   }
